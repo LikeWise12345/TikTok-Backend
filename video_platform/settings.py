@@ -108,6 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",  # Vue.js frontend origin
+    "http://127.0.0.1:8080",  # Alternative localhost
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = 'core.User'
@@ -120,6 +121,7 @@ CORS_ALLOW_METHODS = [
 ]
 CORS_ALLOW_HEADERS = [
     'content-type',
+    "x-csrftoken",  # ✅ Explicitly allow CSRF header
     'authorization',
     'x-requested-with',
 ]
@@ -155,3 +157,13 @@ REST_FRAMEWORK = {
 
 MEDIA_URL = '/videos/'  # Base URL to access media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'videos')  # Directory where media files are stored
+CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]  # Adjust frontend port
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read CSRF token
+CSRF_USE_SESSIONS = False  # Use CSRF token in cookies
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Adjust for your frontend URL
+]
+CSRF_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SAMESITE = "Lax"

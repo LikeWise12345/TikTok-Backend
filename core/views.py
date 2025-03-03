@@ -11,6 +11,8 @@ from rest_framework.authtoken.models import Token
 from .serializers import UserSignupSerializer, UserLoginSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
 
 class VideoListView(APIView):
     def get(self, request):
@@ -93,3 +95,5 @@ class UserLoginView(APIView):
                 'error': 'Invalid credentials'
             }, status=status.HTTP_400_BAD_REQUEST)
 
+def csrf_token_view(request):
+    return JsonResponse({"csrfToken": get_token(request)})
